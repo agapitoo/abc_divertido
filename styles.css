@@ -1,0 +1,405 @@
+:root {
+    --cor-principal: #6B7FD7;     /* Azul suave/lavanda */
+    --cor-secundaria: #78C091;    /* Verde suave */
+    --cor-fundo: #F5F7FF;         /* Fundo claro com toque de azul */
+    --cor-destaque: #FFB17A;      /* Laranja suave para destaques */
+    --cor-texto: #4A4A4A;         /* Cinza escuro para texto */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comic Sans MS', cursive;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    padding-bottom: 50px;
+}
+
+.container {
+    max-width: 880px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 22px;
+}
+
+#menu-principal {
+    text-align: center;
+    margin-top: 44px;
+    width: 100%;
+}
+
+#menu-principal h1 {
+    color: var(--cor-principal);
+    margin-bottom: 44px;
+    font-size: 2.75em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+#menu-principal button {
+    display: block;
+    width: 220px;
+    font-size: 26px;
+    padding: 17px 33px;
+    margin: 22px auto;
+    border-radius: 17px;
+    background-color: var(--cor-principal);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 9px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+#menu-principal button:hover {
+    transform: scale(1.06);
+}
+
+#selecao-caracteres {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    min-height: 70vh;
+    justify-content: space-between;
+}
+
+#selecao-caracteres button {
+    aspect-ratio: 1;
+    font-size: 32px;
+    border-radius: 10px;
+    background-color: var(--cor-principal);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+
+#selecao-caracteres button:hover {
+    transform: scale(1.1);
+}
+
+#area-atividade {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.area-desenho {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    margin: 20px auto;
+    width: 100%;
+}
+
+.letra-referencia {
+    font-size: 240px;
+    font-family: 'Comic Sans MS', cursive;
+    color: var(--cor-principal);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    min-width: 240px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.letra-referencia:hover {
+    transform: scale(1.05);
+    opacity: 0.8;
+}
+
+.letra-referencia:active {
+    transform: scale(0.95);
+}
+
+#canvas-desenho {
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 1;
+    border: 3px solid var(--cor-principal);
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    touch-action: none;
+}
+
+@media (max-width: 768px) {
+    .area-desenho {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .letra-referencia {
+        font-size: 180px;
+        min-width: auto;
+    }
+}
+
+.controles {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    position: relative;
+    z-index: 100;
+}
+
+.controles button {
+    padding: 12px 25px;
+    font-size: 18px;
+    border-radius: 20px;
+    background-color: var(--cor-principal);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+    position: relative;
+    z-index: 100;
+}
+
+.controles button:active {
+    transform: scale(0.95);
+}
+
+.escondido {
+    display: none !important;
+}
+
+@keyframes estrela {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg) scale(1.5);
+        opacity: 0;
+    }
+}
+
+.estrela {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: url('imagens/estrela.png') no-repeat center/contain;
+    animation: estrela 2s ease-out forwards;
+    pointer-events: none;
+}
+
+/* Adicionar estilo para o botão verificar */
+.btn-verificar {
+    background-color: var(--cor-secundaria) !important;
+}
+
+/* Adicionar classes para feedback visual */
+.desenho-correto {
+    border-color: #4CAF50 !important;
+    animation: pulsar 0.5s ease-in-out;
+}
+
+.desenho-incorreto {
+    border-color: #f44336 !important;
+    animation: tremer 0.5s ease-in-out;
+}
+
+@keyframes pulsar {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes tremer {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+    100% { transform: translateX(0); }
+}
+
+#dica-desenho {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    transition: opacity 0.3s;
+    opacity: 0;
+    z-index: 1000;
+}
+
+#mensagem-feedback {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    transition: opacity 0.3s;
+    opacity: 0;
+    z-index: 1000;
+}
+
+.btn-ouvir {
+    background-color: var(--cor-destaque) !important;
+}
+
+.btn-ouvir-letra {
+    background-color: var(--cor-principal) !important;
+    opacity: 0.9;
+}
+
+/* Ajustar o layout dos botões em telas menores */
+@media (max-width: 600px) {
+    .controles {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .controles button {
+        margin: 5px;
+    }
+}
+
+.imagem-exemplo {
+    width: 150px;
+    height: 150px;
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+    transition: opacity 0.3s, transform 0.2s;
+    cursor: pointer;
+}
+
+.imagem-exemplo:hover {
+    transform: scale(1.05);
+}
+
+.imagem-exemplo:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+    .imagem-exemplo {
+        width: 120px;
+        height: 120px;
+        font-size: 80px;
+    }
+}
+
+.btn-voltar {
+    padding: 3px 8px;
+    font-size: 10px;
+    border-radius: 3px;
+    background-color: var(--cor-principal);
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    width: auto;
+    min-width: 40px;
+    height: auto;
+    min-height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: none;
+    font-weight: normal;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    opacity: 1;
+}
+
+.btn-voltar:hover {
+    opacity: 0.9;
+    background-color: var(--cor-principal);
+}
+
+/* Ajustar o grid para os caracteres */
+.grid-caracteres {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* Estilizar os botões do grid */
+.grid-caracteres button {
+    aspect-ratio: 1;
+    font-size: 32px;
+    border-radius: 15px;
+    background-color: var(--cor-principal);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+
+.grid-caracteres button:hover {
+    transform: scale(1.1);
+}
+
+.rodape {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: var(--cor-fundo);
+    font-size: 14px;
+    color: var(--cor-texto);
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+}
+
+.rodape .coracao {
+    color: #ff5757;
+    display: inline-block;
+    animation: pulsar 1.5s ease infinite;
+}
+
+.rodape .autor {
+    color: var(--cor-principal);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.rodape .autor:hover {
+    color: var(--cor-destaque);
+    text-decoration: underline;
+}
+
+@keyframes pulsar {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+  

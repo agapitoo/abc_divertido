@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABC Divertido 🎨</title>
+
+    <!-- Favicons para a barra de navegação -->
+    <link rel="icon" type="image/png" sizes="196x196" href="icons/android/android-launchericon-192-192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/windows/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/windows/favicon-16x16.png">
+    <link rel="shortcut icon" href="icons/windows/favicon.ico">
+    
+    <!-- Meta tags para PWA -->
+    <meta name="theme-color" content="#6B7FD7">
+    <meta name="description" content="Aprenda a escrever letras e números de forma divertida">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ABC Divertido">
+
+    <!-- Ícones para Apple -->
+    <link rel="apple-touch-icon" href="icons/ios/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/ios/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/ios/apple-touch-icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="icons/ios/apple-touch-icon-167x167.png">
+
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="menu-principal">
+            <h1>ABC Divertido</h1>
+            <button onclick="mostrarSelecao('letras')">Letras</button>
+            <button onclick="mostrarSelecao('numeros')">Números</button>
+        </div>
+
+        <div id="selecao-caracteres" class="escondido">
+            <div class="header-selecao">
+                <button onclick="voltarMenu()" class="btn-voltar">Voltar</button>
+            </div>
+        </div>
+
+        <div id="area-atividade" class="escondido">
+            <div class="area-desenho">
+                <div class="letra-referencia"></div>
+                <canvas id="canvas-desenho"></canvas>
+            </div>
+            <div class="imagem-exemplo"></div>
+            <div class="controles">
+                <button onclick="falar()" class="btn-ouvir">Ouvir Exemplo</button>
+                <button onclick="verificarDesenhoManualmente()" class="btn-verificar">Verificar</button>
+                <button onclick="limparDesenho()">Limpar</button>
+                <button onclick="voltarMenu()">Voltar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="rodape">
+        <p>Desenvolvido com <span class="coracao">❤</span> por 
+            <a href="https://github.com/gasparelly" target="_blank" class="autor">Gasparelly</a>
+        </p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registrado com sucesso');
+                    })
+                    .catch(err => {
+                        console.log('Erro no registro do ServiceWorker:', err);
+                    });
+            });
+        }
+    </script>
+</body>
+</html> 
