@@ -4,6 +4,7 @@
     --cor-fundo: #F5F7FF;         /* Fundo claro com toque de azul */
     --cor-destaque: #FFB17A;      /* Laranja suave para destaques */
     --cor-texto: #4A4A4A;         /* Cinza escuro para texto */
+    font-size: 16px; /* Base para cálculo do rem */
 }
 
 * {
@@ -12,45 +13,50 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
 body {
     font-family: 'Comic Sans MS', cursive;
-    min-height: 100vh;
-    padding: 20px;
     background-color: var(--cor-fundo);
     color: var(--cor-texto);
-    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
-    max-width: 880px;
-    margin: 0 auto;
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
-    padding: 22px;
+    max-height: calc(100vh - 3rem); /* Altura total menos rodapé */
 }
 
 #menu-principal {
     text-align: center;
-    margin-top: 44px;
+    margin-top: 2.75rem; /* 44px */
     width: 100%;
 }
 
 #menu-principal h1 {
     color: var(--cor-principal);
-    margin-bottom: 44px;
-    font-size: 2.75em;
+    margin-bottom: 2.75rem; /* 44px */
+    font-size: 2.75rem; /* Mantido em rem para escala */
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
 #menu-principal button {
     display: block;
-    width: 220px;
-    font-size: 26px;
-    padding: 17px 33px;
-    margin: 22px auto;
-    border-radius: 17px;
+    width: 13.75rem; /* 220px */
+    font-size: 1.625rem; /* 26px */
+    padding: 1.0625rem 2.0625rem; /* 17px 33px */
+    margin: 1.375rem auto; /* 22px */
+    border-radius: 1.0625rem; /* 17px */
     background-color: var(--cor-principal);
     color: white;
     border: none;
@@ -94,25 +100,27 @@ body {
 #area-atividade {
     width: 100%;
     max-width: 500px;
-    margin: 20px auto;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .area-desenho {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 50px;
-    margin: 20px auto;
+    gap: 2rem;
     width: 100%;
 }
 
 .letra-referencia {
-    font-size: 240px;
+    font-size: 15rem; /* 240px */
     font-family: 'Comic Sans MS', cursive;
     color: var(--cor-principal);
     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    min-width: 240px;
+    min-width: 15rem; /* 240px */
     text-align: center;
     display: flex;
     align-items: center;
@@ -143,14 +151,33 @@ body {
 }
 
 @media (max-width: 768px) {
+    :root {
+        font-size: 14px;
+    }
+
     .area-desenho {
         flex-direction: column;
-        gap: 20px;
+        gap: 1rem;
     }
-    
+
     .letra-referencia {
-        font-size: 180px;
-        min-width: auto;
+        font-size: 8rem;
+    }
+
+    #canvas-desenho {
+        width: 90vw;
+        height: auto;
+    }
+
+    .controles {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .imagem-exemplo {
+        width: 5rem;
+        height: 5rem;
+        font-size: 3rem;
     }
 }
 
@@ -164,9 +191,9 @@ body {
 }
 
 .controles button {
-    padding: 12px 25px;
-    font-size: 18px;
-    border-radius: 20px;
+    padding: 0.75rem 1.5625rem; /* 12px 25px */
+    font-size: 1.125rem; /* 18px */
+    border-radius: 1.25rem; /* 20px */
     background-color: var(--cor-principal);
     color: white;
     border: none;
@@ -286,13 +313,13 @@ body {
 }
 
 .imagem-exemplo {
-    width: 150px;
-    height: 150px;
-    margin: 10px auto;
+    width: 9.375rem; /* 150px */
+    height: 9.375rem; /* 150px */
+    margin: 0.625rem auto; /* 10px */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 100px;
+    font-size: 6.25rem; /* 100px */
     transition: opacity 0.3s, transform 0.2s;
     cursor: pointer;
 }
@@ -314,18 +341,18 @@ body {
 }
 
 .btn-voltar {
-    padding: 3px 8px;
-    font-size: 10px;
-    border-radius: 3px;
+    padding: 0.1875rem 0.5rem; /* 3px 8px */
+    font-size: 0.625rem; /* 10px */
+    border-radius: 0.1875rem; /* 3px */
     background-color: var(--cor-principal);
     color: white;
     border: none;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 0.3125rem; /* 5px */
     width: auto;
-    min-width: 40px;
+    min-width: 2.5rem; /* 40px */
     height: auto;
-    min-height: 20px;
+    min-height: 1.25rem; /* 20px */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -367,16 +394,12 @@ body {
 }
 
 .rodape {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 10px;
-    text-align: center;
+    height: 3rem;
+    padding: 0.5rem;
     background-color: var(--cor-fundo);
-    font-size: 14px;
-    color: var(--cor-texto);
+    text-align: center;
     box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    z-index: 1000;
 }
 
 .rodape .coracao {
